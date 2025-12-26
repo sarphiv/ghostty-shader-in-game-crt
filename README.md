@@ -1,4 +1,4 @@
-# Ghostty - In-game CRT shader
+# Ghostty shader - In-game CRT
 Shader for [Ghostty](https://ghostty.org/) with a focus on being usable while looking like a stylized CRT terminal from a modern video game.
 
 ## 🖥️ CRT effects
