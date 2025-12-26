@@ -35,7 +35,7 @@ Shader for [Ghostty](https://ghostty.org/) with a focus on being usable while lo
 ⚙️ **User settings available for easy configuration.**
 
 
-## 🛠️ Installation
+# 🛠️ Installation
 > [!NOTE]
 > The below instructions should work for most people, however, the correct locations are technically `$XDG_CONFIG_HOME/ghostty/shaders` and `$XDG_CONFIG_HOME/ghostty/config`.
 
