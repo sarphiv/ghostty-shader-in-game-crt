@@ -34,7 +34,6 @@ Shader for [Ghostty](https://ghostty.org/) with a focus on being usable while lo
 
 ⚙️ **User settings available for easy configuration.**
 
----
 
 ## 🛠️ Installation
 > [!NOTE]
