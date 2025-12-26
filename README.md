@@ -4,24 +4,24 @@ Shader for [Ghostty](https://ghostty.org/) with a focus on being usable while lo
 ## 🖥️ CRT effects
 ![demo](assets/demo.gif)
 
-⚙️ 20 adjustable settings with accompanying descriptions and value ranges.
-🌀 Curved display with subtle vignette to mimic mediocre CRT glass.
-🌈 Minor color fringing and subtle RGB-separated ghost images.
-🎨 Tint and non-linear color changes for aggressive colors.
-📺 Scan lines and aperture grille for pixel-grid texture.
-✨ Static noise and subtle flicker to enhance glows.
-💡 Bloom to intensify and enlarge bright regions.
+##### ⚙️ 20 adjustable settings with accompanying descriptions and value ranges.
+##### 🌀 Curved display with subtle vignette to mimic mediocre CRT glass.
+##### 🌈 Minor color fringing and subtle RGB-separated ghost images.
+##### 🎨 Tint and non-linear color changes for aggressive colors.
+##### 📺 Scan lines and aperture grille for pixel-grid texture.
+##### ✨ Static noise and subtle flicker to enhance glows.
+##### 💡 Bloom to intensify and enlarge bright regions.
 
 ## 🌠 Cursor effects
 | Line (normal speed) | Line (slow motion) | Block (freeze frame) |
 | - | - | - |
 | ![cursor-line-1.00x](assets/cursor-line-1.00x.gif) | ![cursor-line-0.01x](assets/cursor-line-0.01x.gif) | ![cursor-block-0.00x](assets/cursor-block-0.00x.gif) |
 
-👀 Trails appear only on large cursor jumps to help guide eyes, quick fade.
-✨ Subtle and unobtrusive highlight upon small cursor movements.
-🎨 Adaptive color blending between start and end cursor hues.
-⬜ Supports line and block cursors, including transitions.
-⚙️ User settings available for easy configuration.
+##### 👀 Trails appear only on large cursor jumps to help guide eyes, quick fade.
+##### ✨ Subtle and unobtrusive highlight upon small cursor movements.
+##### 🎨 Adaptive color blending between start and end cursor hues.
+##### ⬜ Supports line and block cursors, including transitions.
+##### ⚙️ User settings available for easy configuration.
 
 ---
 

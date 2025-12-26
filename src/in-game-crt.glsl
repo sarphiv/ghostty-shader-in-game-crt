@@ -231,7 +231,8 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord) {
 
 
     // Vignette effect
-    fragColor.rgb *= VIGNETTE_BRIGHTNESS * pow(uv.x * uv.y * (1.0-uv.x) * (1.0-uv.y), VIGNETTE_SPREAD);
+    // NOTE: Clamp necessary because of curve effect
+    fragColor.rgb *= VIGNETTE_BRIGHTNESS * pow(clamp(uv.x * uv.y * (1.0-uv.x) * (1.0-uv.y), 0.0, 1.0), VIGNETTE_SPREAD);
 
 
     // Tint all colors
