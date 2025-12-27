@@ -139,18 +139,22 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord) {
     float tVisible = exp(-(iTime - iTimeCursorChange) / TIME_DURATION_FACTOR * 50.0);
     
     float dTrail = sdTrail(uv, currPos, currSize, prevPos, prevSize, tShape);
-    float dTip = nearbyPrev ? 0.0 : clamp(1.0 - abs(dSeg - 1.0), 0.0, 1.0);
+    float dTip = nearbyPrev ? 1.0 : clamp(1.0 - abs(dSeg - 1.0), 0.0, 1.0);
 
     vec4 currColor = colorOverride(iCurrentCursorColor, vec4(GLOW_COLOR_OVERRIDE_CURRENT, 1.0));
     vec4 prevColor = colorOverride(iPreviousCursorColor, vec4(GLOW_COLOR_OVERRIDE_PREVIOUS, 1.0));
     vec4 glowColor = mix(fragColor, mix(prevColor, currColor, dTip) + GLOW_COLOR_OFFSET_BRIGHTNESS, pow(dTip, 3));
     glowColor = mix(glowColor, fragColor, pow(smoothstep(0.0, 0.3, dTrail), 0.1));
 
-    vec4 trailColor = mix(vec4(1.0), glowColor, pow(smoothstep(0.0, 0.01, dTrail), 0.2));
-    vec4 trail = mix(trailColor, fragColor, pow(smoothstep(0.0, nearbyPrev ? 0.01 : 0.1, dTrail), 0.2));
+    vec4 trail;
     if (!nearbyPrev) {
+        vec4 trailColor = mix(vec4(1.0), glowColor, pow(smoothstep(0.0, 0.01, dTrail), 0.2));
+        trail = mix(trailColor, fragColor, pow(smoothstep(0.0, 0.1, dTrail), 0.2));
         trail = mix(trailColor, trail, pow(smoothstep(0.0, 6.0, dTip), 0.05));
         trail = mix(trailColor, trail, pow(smoothstep(0.0, 8.0, dTip), 0.005));
+    }
+    else {
+        trail = mix(glowColor, fragColor, pow(smoothstep(0.0, mix(0.005, 0.05, pow(dCenter/TRAIL_MIN_DISTANCE, 4)), dTrail), 0.2));
     }
 
     fragColor = mix(fragColor, trail, tVisible);
