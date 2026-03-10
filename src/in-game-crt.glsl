@@ -63,17 +63,17 @@
 
 // How much the screen flickers
 // x \in R : x >= 0
-#define FLICKER_STRENGTH 0.04
+#define FLICKER_STRENGTH 0.005
 // How fast the screen flickers
 // x \in R : x > 0
 #define FLICKER_FREQUENCY 15.0
 
 // How much noise is added to filled areas
 // [0, 1]
-#define NOISE_CONTENT_STRENGTH 0.25
+#define NOISE_CONTENT_STRENGTH 0.15
 // How much noise is added everywhere
 // [0, 1]
-#define NOISE_UNIFORM_STRENGTH 0.25
+#define NOISE_UNIFORM_STRENGTH 0.15
 
 // How big the bloom is
 // x \in R : x >= 0
