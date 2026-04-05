@@ -8,7 +8,13 @@
 
 
 // Settings:
-// Minimum distance in UV coordinates before drawing trail
+// Global multiplier for trail size
+// x \in R : x > 0
+#define TRAIL_SIZE_FACTOR 1.0
+// Reference framebuffer size.
+// [0, inf)^3
+#define TRAIL_REFERENCE_RESOLUTION 962.0, 528.0
+// Minimum distance in trail reference space before drawing trail
 // [0, sqrt(2)]
 #define TRAIL_MIN_DISTANCE 0.1
 // Use override colors when color channel brightness standard deviation is below threshold
@@ -123,22 +129,23 @@ vec4 colorOverride(vec4 baseColor, vec4 overrideColor) {
 
 
 void mainImage(out vec4 fragColor, in vec2 fragCoord) {
-    vec2 uv = fragCoord.xy / iResolution.xy;
-    fragColor = texture(iChannel0, uv);
+    vec2 trailScale = TRAIL_SIZE_FACTOR / vec2(TRAIL_REFERENCE_RESOLUTION);
+    vec2 trailCoord = fragCoord.xy * trailScale;
+    fragColor = texture(iChannel0, fragCoord.xy / iResolution.xy);
 
-    vec2 currPos = iCurrentCursor.xy / iResolution.xy, currSize = iCurrentCursor.zw / iResolution.xy;
-    vec2 prevPos = iPreviousCursor.xy / iResolution.xy, prevSize = iPreviousCursor.zw / iResolution.xy;
+    vec2 currPos = iCurrentCursor.xy * trailScale, currSize = iCurrentCursor.zw * trailScale;
+    vec2 prevPos = iPreviousCursor.xy * trailScale, prevSize = iPreviousCursor.zw * trailScale;
     vec2 currCenter = currPos + currSize * vec2(0.5, -0.5);
     vec2 prevCenter = prevPos + prevSize * vec2(0.5, -0.5);
 
     float dCenter = distance(currCenter, prevCenter);
-    float dSeg = dot(uv - prevCenter, currCenter - prevCenter) * pow(dCenter + EPS, -2);
+    float dSeg = dot(trailCoord - prevCenter, currCenter - prevCenter) * pow(dCenter + EPS, -2);
     bool nearbyPrev = dCenter < TRAIL_MIN_DISTANCE;
 
     float tShape = 1.0 - pow(1.0 - clamp((iTime - iTimeCursorChange) / TIME_DURATION_FACTOR, 0.0, 1.0), 3);
     float tVisible = exp(-(iTime - iTimeCursorChange) / TIME_DURATION_FACTOR * 50.0);
     
-    float dTrail = sdTrail(uv, currPos, currSize, prevPos, prevSize, tShape);
+    float dTrail = sdTrail(trailCoord, currPos, currSize, prevPos, prevSize, tShape);
     float dTip = nearbyPrev ? 1.0 : clamp(1.0 - abs(dSeg - 1.0), 0.0, 1.0);
 
     vec4 currColor = colorOverride(iCurrentCursorColor, vec4(GLOW_COLOR_OVERRIDE_CURRENT, 1.0));
